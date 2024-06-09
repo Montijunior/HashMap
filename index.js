@@ -3,8 +3,11 @@ class HashMap {
   constructor() {
     this.buckets = [];
     this.buckets.length = 16;
+    for (let i = 0; i < this.buckets.length; i++) {
+      this.buckets[i] = [];
+    }
+
     this.keyCount = 0;
-    this.loadFactor = 0.75;
   }
 
   // hash code method
@@ -74,12 +77,13 @@ class HashMap {
         return true;
       }
     }
+    this.keyCount--;
   }
 
   // length() : return length of store items
   length() {
     let array = this.buckets;
-    return array.length;
+    return this.keyCount;
   }
 
   // clear() : remove all entries
@@ -100,16 +104,5 @@ class HashMap {
 
 const map = new HashMap();
 
-map.set("name", "Monti");
-map.set("age", 25);
-map.set("surname", "Junior");
-map.set("red", "color red");
-map.set("color", "color");
-map.set("red", "color indigo not red");
-
-map.remove("color");
-map.remove("age");
-
-// console.log(map.getSize());
 console.log(map.entries());
 console.log(map.length());
