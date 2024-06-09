@@ -29,12 +29,34 @@ class HashMap {
     }
     let bucket = this.buckets[index];
     for (let i = 0; i < bucket.length; i++) {
-      if (bucket[i][0] === key) {
-        bucket[i][1] = value;
+      let [existingKey] = bucket[i];
+      if (existingKey === key) {
+        bucket[i] = [key, value];
+        return;
       }
     }
     bucket.push([key, value]);
     this.keyCount++;
+
+    //   resize the buckets
+    if (this.keyCount / this.buckets.length > 0.75) {
+      this.resize(this.buckets.length * 2);
+    }
+  }
+
+  // resize() method
+  resize(newLength) {
+    const oldBuckets = this.buckets;
+    oldBuckets.length = newLength;
+    for (let i = 0; i < oldBuckets; i++) {
+      oldBuckets[i] = [];
+    }
+    this.keyCount = 0;
+    for (const bucket of oldBuckets) {
+      for (const [key, value] of bucket) {
+        this.set(key, value);
+      }
+    }
   }
 
   // get(key): returns a value from the key argument
@@ -103,6 +125,9 @@ class HashMap {
 }
 
 const map = new HashMap();
+map.set("red", "red color");
+map.set("green", "green color");
+map.set("blue", "blue color");
 
 console.log(map.entries());
 console.log(map.length());
