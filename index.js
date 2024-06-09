@@ -44,6 +44,20 @@ class HashMap {
       }
     }
   }
+
+  // has(key) : returns true or false if key is present in the hash map
+  has(key) {
+    let index = this.hash(key);
+    if (!this.buckets[index]) {
+      return false;
+    }
+    let bucket = this.buckets[index];
+    for (let i = 0; i < bucket.length; i++) {
+      if (bucket[i][0] === key) {
+        return true;
+      }
+    }
+  }
 }
 
 const map = new HashMap(16);
@@ -51,7 +65,8 @@ map.set("red", "color one");
 map.set("green", "color two");
 map.set("blue", "color three");
 map.set("red", "modified");
-console.log(map.get("red"));
-console.log(map.get("green"));
-console.log(map.get("blue"));
-console.log(map.get("orange"));
+map.set("indigo", "indigo value");
+console.log(map.has("mangoes"));
+console.log(map.has("red"));
+console.log(map.has("yellow"));
+console.log(map.has("green"));
