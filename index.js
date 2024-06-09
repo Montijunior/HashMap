@@ -1,8 +1,10 @@
 // run script with Node <filename>.js
 class HashMap {
-  constructor(size) {
+  constructor() {
     this.buckets = [];
-    this.size = size;
+    this.buckets.length = 16;
+    this.keyCount = 0;
+    this.loadFactor = 0.75;
   }
 
   // hash code method
@@ -10,7 +12,8 @@ class HashMap {
     let hashCode = 0;
     let primeNumber = 31;
     for (let i = 0; i < key.length; i++) {
-      hashCode = (primeNumber * hashCode + key.charCodeAt(i)) % this.size;
+      hashCode =
+        (primeNumber * hashCode + key.charCodeAt(i)) % this.buckets.length;
     }
     return hashCode;
   }
@@ -28,6 +31,7 @@ class HashMap {
       }
     }
     bucket.push([key, value]);
+    this.keyCount++;
   }
 
   // get(key): returns a value from the key argument
@@ -62,16 +66,14 @@ class HashMap {
   // remove(key): removes a key-value pair
   remove(key) {
     let index = this.hash(key);
-    if (this.buckets[index]) {
-      let bucket = this.buckets[index];
-      for (let i = 0; i < bucket.length; i++) {
-        if (bucket[i][0] === key) {
-          bucket.splice(i, 1);
-          return true;
-        }
+    const bucket = this.buckets[index];
+    if (!bucket) return;
+    for (let i = 0; i < bucket.length; i++) {
+      if (bucket[i][0] === key) {
+        bucket.splice(i, 1);
+        return true;
       }
     }
-    return false;
   }
 
   // length() : return length of store items
@@ -84,13 +86,30 @@ class HashMap {
   clear() {
     return (this.buckets = []);
   }
+
+  // entries(): return all values in the hash map
+  entries() {
+    let array = [];
+    let buckets = this.buckets;
+    for (let i = 0; i < buckets.length; i++) {
+      array[i] = buckets[i];
+    }
+    return array;
+  }
 }
 
-const map = new HashMap(16);
-map.set("red", "color one");
-map.set("green", "color two");
-map.set("blue", "color three");
-map.set("red", "modified");
-map.set("indigo", "indigo value");
-// map.clear();
+const map = new HashMap();
+
+map.set("name", "Monti");
+map.set("age", 25);
+map.set("surname", "Junior");
+map.set("red", "color red");
+map.set("color", "color");
+map.set("red", "color indigo not red");
+
+map.remove("color");
+map.remove("age");
+
+// console.log(map.getSize());
+console.log(map.entries());
 console.log(map.length());
