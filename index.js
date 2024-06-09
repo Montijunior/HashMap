@@ -116,9 +116,10 @@ class HashMap {
   // entries(): return all values in the hash map
   entries() {
     let array = [];
-    let buckets = this.buckets;
-    for (let i = 0; i < buckets.length; i++) {
-      array[i] = buckets[i];
+    for (let bucket of this.buckets) {
+      for (let [key, value] of bucket) {
+        array.push([key, value]);
+      }
     }
     return array;
   }
@@ -154,6 +155,10 @@ map.remove("blue");
 map.set("html", "markup language for the web");
 map.set("css", "style sheet language for the web");
 map.set("javascript", "scripting language");
+map.set("name", "Monti");
+map.set("age", 25);
+map.set("surname", "Junior");
+map.set("school", "University of Yaounde 1");
 
 console.log(map.entries());
 console.log(map.length());
