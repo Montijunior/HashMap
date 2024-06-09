@@ -8,6 +8,7 @@ class HashMap {
     }
 
     this.keyCount = 0;
+    this.size = 0;
   }
 
   // hash code method
@@ -90,6 +91,7 @@ class HashMap {
 
   // remove(key): removes a key-value pair
   remove(key) {
+    this.keyCount--;
     let index = this.hash(key);
     const bucket = this.buckets[index];
     if (!bucket) return;
@@ -99,12 +101,10 @@ class HashMap {
         return true;
       }
     }
-    this.keyCount--;
   }
 
   // length() : return length of store items
   length() {
-    let array = this.buckets;
     return this.keyCount;
   }
 
@@ -122,12 +122,40 @@ class HashMap {
     }
     return array;
   }
+
+  // keys(): return all keys in the bucket
+  keys() {
+    let array = [];
+    for (const bucket of this.buckets) {
+      for (const [key] of bucket) {
+        array.push(key);
+      }
+    }
+    return array;
+  }
+
+  // values() : return all values in the bucket
+  values() {
+    let array = [];
+    for (const bucket of this.buckets) {
+      for (const [, value] of bucket) {
+        array.push(value);
+      }
+    }
+    return array;
+  }
 }
 
 const map = new HashMap();
 map.set("red", "red color");
 map.set("green", "green color");
 map.set("blue", "blue color");
+map.remove("blue");
+map.set("html", "markup language for the web");
+map.set("css", "style sheet language for the web");
+map.set("javascript", "scripting language");
 
 console.log(map.entries());
 console.log(map.length());
+console.log(map.keys());
+console.log(map.values());
