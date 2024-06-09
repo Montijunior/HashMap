@@ -1,5 +1,5 @@
 // run script with Node <filename>.js
-class HashMap {
+export default class HashMap {
   constructor() {
     this.buckets = [];
     this.buckets.length = 16;
