@@ -58,6 +58,21 @@ class HashMap {
       }
     }
   }
+
+  // remove(key): removes a key-value pair
+  remove(key) {
+    let index = this.hash(key);
+    if (this.buckets[index]) {
+      let bucket = this.buckets[index];
+      for (let i = 0; i < bucket.length; i++) {
+        if (bucket[i][0] === key) {
+          bucket.splice(i, 1);
+          return true;
+        }
+      }
+    }
+    return false;
+  }
 }
 
 const map = new HashMap(16);
@@ -66,7 +81,3 @@ map.set("green", "color two");
 map.set("blue", "color three");
 map.set("red", "modified");
 map.set("indigo", "indigo value");
-console.log(map.has("mangoes"));
-console.log(map.has("red"));
-console.log(map.has("yellow"));
-console.log(map.has("green"));
