@@ -148,18 +148,18 @@ export default class HashMap {
 }
 
 const map = new HashMap();
-map.set("red", "red color");
-map.set("green", "green color");
-map.set("blue", "blue color");
-map.remove("blue");
-map.set("html", "markup language for the web");
-map.set("css", "style sheet language for the web");
-map.set("javascript", "scripting language");
-map.set("name", "Monti");
-map.set("age", 25);
-map.set("surname", "Junior");
-map.set("school", "University of Yaounde 1");
+// set(key, value) method
+map.set("one", "number one");
+map.set("two", "number two");
+map.set("three", "number three");
+map.set("four", "number four");
+map.set("five", "number five");
 
+// remove(key)
+map.remove("two");
+
+// has(key)
+map.has("four");
 console.log(map.entries());
 console.log(map.length());
 console.log(map.keys());
