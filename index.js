@@ -73,6 +73,17 @@ class HashMap {
     }
     return false;
   }
+
+  // length() : return length of store items
+  length() {
+    let array = this.buckets;
+    return array.length;
+  }
+
+  // clear() : remove all entries
+  clear() {
+    return (this.buckets = []);
+  }
 }
 
 const map = new HashMap(16);
@@ -81,3 +92,5 @@ map.set("green", "color two");
 map.set("blue", "color three");
 map.set("red", "modified");
 map.set("indigo", "indigo value");
+// map.clear();
+console.log(map.length());
